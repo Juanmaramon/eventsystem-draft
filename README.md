@@ -1,2 +1,2 @@
-# eventsystem-draft
-Unity event system draft
+# eventmanager-draft
+Unity event manager draft
