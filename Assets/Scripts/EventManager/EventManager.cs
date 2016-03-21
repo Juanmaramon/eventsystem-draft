@@ -2,19 +2,24 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class GameEvent
+// Base class with event data
+public abstract class GameEvent
 {
 }
 
 public class EventManager : MonoBehaviour {
 
-	public delegate void EventDelegate<T> (T e) where T : GameEvent;
+    #region Attributes
+
+    public delegate void EventDelegate<T> (T e) where T : GameEvent;
 	private delegate void EventDelegate (GameEvent e);
 
 	private Dictionary <string, EventDelegate> eventDictionary;
 	private Dictionary <System.Delegate, EventDelegate> eventLookup;
 
     private static EventManager eventManager;
+
+    #endregion
 
     public static EventManager instance
     {
@@ -48,7 +53,9 @@ public class EventManager : MonoBehaviour {
         }
     }
 
-	public static void StartListening<T> (string eventName, EventDelegate<T> listener) where T : GameEvent
+    #region Public methods
+
+    public static void StartListening<T> (string eventName, EventDelegate<T> listener) where T : GameEvent
     {
 		// Early-out if we've already registered this delegate
 		if (instance.eventLookup.ContainsKey(listener))
@@ -75,6 +82,7 @@ public class EventManager : MonoBehaviour {
 		// If there is no event manager exit
 		if (eventManager == null) return;
         
+        // Try to get listener in order to remove it
 		EventDelegate internalDelegate;
 		if (instance.eventLookup.TryGetValue (listener, out internalDelegate))
         {
@@ -98,10 +106,13 @@ public class EventManager : MonoBehaviour {
 
 	public static void TriggerEvent (string eventName, GameEvent e)
     {
+        // Try to get event to invoke it
 		EventDelegate tempDelegate = null;
 		if (instance.eventDictionary.TryGetValue (eventName, out tempDelegate))
         {
 			tempDelegate.Invoke (e);
         }
     }
+
+    #endregion
 }
