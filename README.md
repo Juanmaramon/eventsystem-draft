@@ -5,6 +5,8 @@ Unity event manager draft:
 
 Type safe event manager (http://www.willrmiller.com/?p=87) with communication (data sended to events) between sender and receiver.
 
+EventManager.cs is the main asset, all other assets are here like an example.
+
 On the project side we have:
 - Contents with explosion from asset store, sound and texture on the scene
 - Scenes have the only scene of the project
