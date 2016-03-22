@@ -30,7 +30,7 @@ public class PigLives : MonoBehaviour {
     void Bacon()
     {
         GetComponent<SpriteRenderer>().enabled = false;
-        // Send explosion event 
-        EventManager.TriggerEvent("explosion", new BasicEvent());
+        // Send explosion event, no parameters required
+        EventManager.TriggerEvent("explosion", null);
     }
 }

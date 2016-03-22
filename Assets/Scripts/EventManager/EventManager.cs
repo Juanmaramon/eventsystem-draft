@@ -11,7 +11,9 @@ public class EventManager : MonoBehaviour {
 
     #region Attributes
 
+	// Generic event delegate
     public delegate void EventDelegate<T> (T e) where T : GameEvent;
+	// Event delegate with data received
 	private delegate void EventDelegate (GameEvent e);
 
 	private Dictionary <string, EventDelegate> eventDictionary;
@@ -31,7 +33,7 @@ public class EventManager : MonoBehaviour {
 
                 if (!eventManager)
                 {
-                    Debug.LogError ("There needs to be one active EventManger script on a GameObject in your scene.");
+                    Debug.LogError ("There needs to be one active EventManager script on a GameObject in your scene.");
                 }
                 else
                 {
@@ -76,7 +78,7 @@ public class EventManager : MonoBehaviour {
 			instance.eventDictionary[eventName] = internalDelegate;
 		}
     }
-
+		
 	public static void StopListening<T> (string eventName, EventDelegate<T> listener) where T : GameEvent
     {
 		// If there is no event manager exit
